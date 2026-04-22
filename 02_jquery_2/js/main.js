@@ -17,18 +17,20 @@ $(() => {
     // =============================================
     // ️2 基本的なメソッド
     // =============================================
-    let title = "";
+    let title = $('#shop-title').text();
     // TODO: id=shop-title のテキストコンテンツ取得
     console.log("Original title:", title);
 
     title = '👕 Spring Apparel';
     // TODO:  id=shop-title のタイトルの設定: text()
+    $('#shop-title').text(title);
 
     title = `👕 Spring Apparel <span class='text-sm text-gray-400'>Men & Women Edition</span>`;
     // TODO: id=shop-title のタイトルの設定: html()
-
+    $('#shop-title').html(title);
     // TODO: #cart-count に count を表示
-    $('#cart-count').text(count);
+    let itemCount = $('.cart-item').length;
+    $('#cart-count').text(itemCount);
 
     // =============================================
     //  4 メソッド2
@@ -37,9 +39,9 @@ $(() => {
     const menClass = "bg-sky-100 text-sky-600"
     const womenClass = "bg-pink-100 text-pink-600"
     // TODO: class=men にクラス設定
-
+    $('.men').addClass(menClass);
     // TODO: class=women にクラス設定
-
+    $('.women').addClass(womenClass);
     // =============================================
     //  4 親子・子孫関係
     // =============================================
@@ -50,13 +52,13 @@ $(() => {
     // 商品カードのクラス
     // TODO: 親子：商品情報 .product > .info にクラス追加
     const infoClass = "p-2";
-
+    $('.product > .info').addClass(infoClass);
     // TODO: 子孫：商品名 class=product .name にクラス追加
     const productNameClass = "font-semibold text-lg";
-
+    $('.product .name').addClass(productNameClass);
     // TODO: 子孫：商品価格 .product .note にクラス追加
     const noteClass = "text-sm text-gray-500";
-
+    $('.product .note').addClass(noteClass);
     // TODO: 子孫：商品価格 .product .price にクラス追加
     const priceClass = "font-bold text-lg";
 
@@ -76,21 +78,27 @@ $(() => {
     const saleDOM = $(saleTag).get(0);
     console.log(saleDOM);
 
-    // TODO: get(): index=1 の商品に saleTag タグを追加
+    // TODO: eq(): index=1 の商品に saleTag タグを追加
+    $(".product").eq(1).append(saleTag);
 
     // TODO: eq(): index=2 の商品（３番目の商品）に newTag タグを追加
     const newTag = "<span class='text-xs bg-pink-200 text-pink-800 px-2 py-1 rounded'>NEW</span>";
+    $(".product").eq(2).append(newTag);
 
     // TODO: first(): 最初の商品に newTag を追加
+    $(".product").first().append(newTag);
 
     // TODO: last(): 最後の商品に hotTag を追加
     const hotTag = "<span class='text-xs bg-sky-200 text-sky-800 px-2 py-1 rounded'>HOT</span>";
+    $(".product").last().append(hotTag);
 
     // TODO: 奇数番目の class=cart-item に class=oddClass を追加
     const oddClass = "bg-gray-100";
+    $(".cart-item").filter(":odd").addClass(oddClass);
 
     document.getElementById("all-filter-btn").addEventListener("click", () => {
         // TODO: 全商品を一旦表示
+        $(".product").removeClass("hidden");
     });
 
     document.getElementById("men-filter-btn").addEventListener("click", () => {
@@ -98,12 +106,14 @@ $(() => {
         $(".product").removeClass("hidden");
 
         // TODO: not(): 男性商品ではない要素を非表示
+        $(".product").not(".men").addClass("hidden");
     });
     document.getElementById("women-filter-btn").addEventListener("click", () => {
         // 全商品を一旦表示
         $(".product").removeClass("hidden");
 
         // TODO: not(): 女性商品ではない要素を非表示
+        $(".product").not(".women").addClass("hidden");
     });
 
 });
