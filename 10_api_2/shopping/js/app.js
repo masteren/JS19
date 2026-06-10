@@ -23,11 +23,11 @@ async function fetchProducts() {
         const productsApiURL = 'api/products/get.php';
 
         // TODO: APIから商品データを取得: fetchAPI
-        const response = await fetch(productsApiURL);
+        const response = await fetch(productsApiURL)
         // APIレスポンスをチェック
         if (!response.ok) showFlash('商品データの取得に失敗しました');
         // TODO: JSON形式でレスポンスを取得: json()
-        allProducts = await response.json();
+        allProducts = await response.json()
         // 商品一覧を描画
         renderProducts(allProducts);
     } catch (error) {
@@ -53,7 +53,7 @@ function renderProducts(products) {
                 <div class="flex items-center mt-2">
                     <span class="text-yellow-400 text-xs">★</span>
                     <span class="text-xs font-bold ml-1">${p.rating.rate}</span>
-                    <span class="text-xs text-gray-400 ml-2">${p.rating.count}reviews)</span>
+                    <span class="text-xs text-gray-400 ml-2">(${p.rating.count} reviews)</span>
                 </div>
 
                 <p class="text-lg font-bold text-gray-900 mt-2">$${p.price}</p>
