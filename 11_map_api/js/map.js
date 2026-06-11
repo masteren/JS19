@@ -270,10 +270,14 @@ function showSelectedPoint(position) {
 
   // ジオコーディング API を使って住所を取得
   geocoder.geocode({ location: position }, (results, status) => {
+    const address = status === 'OK' && results[0] ? results[0].formatted_address : '住所を取得できませんでした';
+    const escapedAddress = escapeHtml(address);
+
     const html = `
     <dl class="grid grid-cols-2 gap-2">
       <div class="rounded-md bg-zinc-100 p-3"><dt class="text-xs text-zinc-500">緯度</dt><dd class="font-bold text-zinc-900">${position.lat.toFixed(6)}</dd></div>
       <div class="rounded-md bg-zinc-100 p-3"><dt class="text-xs text-zinc-500">経度</dt><dd class="font-bold text-zinc-900">${position.lng.toFixed(6)}</dd></div>
+      <div class="col-span-2 rounded-md bg-zinc-100 p-3"><dt class="text-xs text-zinc-500">住所</dt><dd class="font-bold text-zinc-900">${escapedAddress}</dd></div>
     </dl>
   `;
 
