@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript オリジナルアプリ</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans JP"', 'sans-serif'],
+            mono: ['"DM Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f4ff',
+              100: '#dde7ff',
+              200: '#c3d0ff',
+              500: '#5b7fff',
+              600: '#3d62f5',
+              700: '#2a4adb',
+              900: '#1a2d8a',
+            },
+            ink: {
+              50: '#f7f7f6',
+              100: '#efefed',
+              200: '#dddcda',
+              400: '#9c9b97',
+              600: '#5c5b57',
+              800: '#2c2b28',
+              900: '#19180f',
+            },
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-up {
+      animation: fadeUp .45s ease both;
+    }
+
+    .delay-1 {
+      animation-delay: .08s;
+    }
+
+    .delay-2 {
+      animation-delay: .16s;
+    }
+
+    .delay-3 {
+      animation-delay: .24s;
+    }
+
+    .delay-4 {
+      animation-delay: .32s;
+    }
+
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+
+      body {
+        background: white !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-ink-50 text-gray-900 min-h-screen">
+
+  <main class="max-w-3xl mx-auto px-6 py-10 space-y-4">
+
+    <!-- タイトル -->
+    <section class="fade-up">
+      <div class="bg-white border border-ink-100 rounded-2xl p-8">
+        <h1 class="text-2xl font-bold text-gray-900 leading-snug">JavaScript オリジナル作品課題</h1>
+        <p class="mt-2 text-sm text-gray-600">学習した JavaScript の技術を活かして、オリジナルの Web ページを作ろう</p>
+      </div>
+    </section>
+
+    <!-- テーマ -->
+    <section class="fade-up delay-1">
+      <div class="bg-brand-50 border border-brand-100 rounded-xl p-5">
+        <p class="font-medium text-brand-900 mb-2">「オリジナル Web ページ・アプリ」を JavaScript で作ろう</p>
+        <p class="text-sm text-brand-700 leading-relaxed">
+          テーマは完全自由です。好きなもの・興味のあることを題材に、<strong>動くページ</strong>を作ることを最優先。
+          バックエンドのオリジナル作成、外部 API を利用してもOK。
+        </p>
+        <div class="mt-3 flex flex-wrap gap-2">
+          <span
+            class="text-xs bg-white text-brand-700 border border-brand-200 rounded-full px-3 py-1">好きなアーティスト紹介</span>
+          <span class="text-xs bg-white text-brand-700 border border-brand-200 rounded-full px-3 py-1">おすすめスポット一覧</span>
+          <span class="text-xs bg-white text-brand-700 border border-brand-200 rounded-full px-3 py-1">ゲームキャラ図鑑</span>
+          <span class="text-xs bg-white text-brand-700 border border-brand-200 rounded-full px-3 py-1">料理レシピページ</span>
+          <span class="text-xs bg-white text-brand-700 border border-brand-200 rounded-full px-3 py-1">ポートフォリオ</span>
+          <span class="text-xs bg-white text-brand-700 border border-brand-200 rounded-full px-3 py-1">など自由に！</span>
+        </div>
+        <div class="text-sm text-rose-700 leading-relaxed mt-2">
+          フロントエンドは React や Vue などのフレームワークは使わず、HTML・CSS・JavaScript で作成してください。<br>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>提出方法</h2>
+
+      <div class="my-2 flex gap-4 p-5 bg-amber-50 rounded-xl">
+        <div
+          class="flex-shrink-0 w-7 h-7 rounded-full bg-amber-400 text-white text-xs font-mono font-medium flex items-center justify-center">
+          1</div>
+        <div class="flex-1">
+          <p class="font-medium text-amber-900 mb-1">提出期限</p>
+          <div class="mt-2 space-y-2">
+            <div class="flex items-start gap-2">
+              <p class="text-sm text-amber-700 leading-relaxed">
+                2026年7月19日（日）まで
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="my-2 flex gap-4 p-5 bg-amber-50 rounded-xl">
+        <div
+          class="flex-shrink-0 w-7 h-7 rounded-full bg-amber-400 text-white text-xs font-mono font-medium flex items-center justify-center">
+          2</div>
+        <div class="flex-1">
+          <p class="font-medium text-amber-900 mb-1">zip に圧縮して提出</p>
+          <div class="mt-2 space-y-2">
+            <div class="flex items-start gap-2">
+              <span class="text-amber-400 text-sm mt-0.5">📁</span>
+              <p class="text-sm text-amber-700 leading-relaxed">
+                ファイル名：<code class="font-mono text-xs bg-amber-100 px-1.5 py-0.5 rounded">js_出席番号_氏名.zip</code><br>
+                <span class="text-amber-500">例：</span><code
+                  class="font-mono text-xs bg-amber-100 px-1 rounded">js_01_東京太郎.zip</code>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 評定基準と注意点 -->
+    <section class="fade-up delay-3">
+      <h2 class="text-xs font-mono text-gray-600 tracking-widest uppercase mb-3">評定基準と注意点</h2>
+      <div class="bg-white border border-ink-100 rounded-xl divide-y divide-ink-100">
+
+        <div class="flex gap-4 p-5">
+          <div
+            class="flex-shrink-0 w-7 h-7 rounded-full bg-brand-500 text-white text-xs font-mono font-medium flex items-center justify-center">
+            1</div>
+          <div class="flex-1">
+            <p class="font-medium text-gray-800 mb-1">評定基準</p>
+            <p class="text-sm text-gray-600 leading-relaxed mt-1">
+              提出された作品は、以下の観点で評価されます。<br>
+            <ul class="list-disc text-sm list-inside text-gray-600 mt-2 space-y-1">
+              <li><a href="#requirements" class="text-sky-600">下記の要件</a>を満たしているか（必須項目の達成度）</li>
+              <li>授業でやったような内容を活用しているか</li>
+              <li>独学で学んだ技術やアイデアに自主的に挑戦したか</li>
+            </ul>
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 p-5">
+          <div
+            class="flex-shrink-0 w-7 h-7 rounded-full bg-brand-500 text-white text-xs font-mono font-medium flex items-center justify-center">
+            2</div>
+          <div class="flex-1">
+            <p class="font-medium text-gray-800 mb-1">フォルダ・ファイルを作成する</p>
+            <p class="text-sm text-gray-600 leading-relaxed mt-1">
+              プロジェクト用フォルダを作り、ファイルを用意。<br>
+              REAEDME.md には、作品テーマ・使用技術・工夫した点・AIの活用方法などを簡単にまとめる。
+            </p>
+            <div class="mt-3 bg-ink-900 rounded-lg px-4 py-3">
+              <p class="text-xs font-mono text-gray-600 mb-1">ファイル構成の例</p>
+              <pre class="text-xs font-mono text-green-400 leading-relaxed">my-project/
+├── index.html
+├── css/style.css
+├── js/app.js
+└── README.md
+</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex gap-4 p-5">
+          <div
+            class="flex-shrink-0 w-7 h-7 rounded-full bg-brand-500 text-white text-xs font-mono font-medium flex items-center justify-center">
+            3</div>
+          <div class="flex-1">
+            <p class="font-medium text-gray-800 mb-1">AIコーディングの活用と注意点</p>
+            <p class="text-sm text-gray-600 leading-relaxed mt-1">
+              AIを活用してアイデア出しやコードのサンプルをもらいながら作成を進めてみましょう。<br>
+              ただし、AIを利用する場合は、以下の点に注意してください。<br>
+            <ul class="list-disc text-sm list-inside text-gray-600 mt-2 space-y-1">
+              <li>AIはあくまで補助ツールであり、最終的な作品は自分の手で作ることが重要。</li>
+              <li>AIから得たアイデアやコードは、自分の作品に合うようにアレンジ・カスタマイズする。</li>
+              <li>
+                AIを使用した場合は、どのように活用したかを作品の説明に記載。<br>
+                <div class="mt-2">
+                  例：「アイデア出しにChatGPTを使用しました」<br>
+                  例：「APIの呼び出しコードはAIに生成してもらい、そこから自分で改良を加えました」
+                </div>
+              </li>
+              </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 学習内容 -->
+    <section class="fade-up delay-1">
+      <h2 class="text-xs font-mono text-gray-600 tracking-widest uppercase mb-3">Topics — 今までやった学習内容</h2>
+      <div class="bg-white border border-ink-100 rounded-xl divide-y divide-ink-100">
+
+        <div class="flex items-start gap-4 p-4">
+          <span class="shrink-0 mt-0.5 w-7 h-7 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </span>
+          <div>
+            <p class="text-sm font-medium text-gray-800">メニュー</p>
+            <p class="text-xs text-gray-600 mt-0.5 leading-relaxed">
+              ハンバーガーメニュー、ドロップダウン、タブ切り替えなど、クリックで表示・非表示を制御する UI
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4 p-4">
+          <span class="shrink-0 mt-0.5 w-7 h-7 rounded-lg bg-green-100 text-green-600 flex items-center justify-center">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </span>
+          <div>
+            <p class="text-sm font-medium text-gray-800">イメージビュー</p>
+            <p class="text-xs text-gray-600 mt-0.5 leading-relaxed">
+              モーダルで画像を拡大表示、スライドショー、クリックで画像を切り替えるギャラリーなど
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4 p-4">
+          <span class="shrink-0 mt-0.5 w-7 h-7 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </span>
+          <div>
+            <p class="text-sm font-medium text-gray-800">アニメーション・パララックス</p>
+            <p class="text-xs text-gray-600 mt-0.5 leading-relaxed">
+              CSS トランジション・キーフレームアニメーション、スクロール連動など
+            </p>
+            <p class="text-xs text-gray-600 mt-0.5 leading-relaxed">
+              スクロール量に応じて背景・要素を異なる速度で動かす視差効果
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4 p-4">
+          <span class="shrink-0 mt-0.5 w-7 h-7 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </span>
+          <div>
+            <p class="text-sm font-medium text-gray-800">API（Fetch API・JSON）</p>
+            <p class="text-xs text-gray-600 mt-0.5 leading-relaxed">
+              <code class="bg-ink-100 px-1 rounded">fetch()</code> で外部 API からデータを取得し、<code
+                class="bg-ink-100 px-1 rounded">JSON</code> をパースしてページに表示する
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 要件 -->
+    <section id="requirements" class="fade-up delay-2">
+      <h2 class="text-xs font-mono text-gray-600 tracking-widest uppercase mb-3">Requirements — 要件</h2>
+
+      <!-- 必須 -->
+      <div class="mb-4">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xs font-medium bg-brand-100 text-brand-700 px-2.5 py-0.5 rounded-full">必須</span>
+          <span class="text-xs text-gray-600">ここまでが提出の最低条件です</span>
+        </div>
+        <div class="bg-white border border-ink-100 rounded-xl divide-y divide-ink-100">
+          <div class="flex items-start gap-3 p-4">
+            <span class="font-mono text-xs text-gray-300 pt-0.5 w-5 shrink-0">01</span>
+            <div>
+              <p class="text-sm font-medium text-gray-800">HTML・CSS・JavaScript の 3ファイルで構成されている</p>
+              <p class="text-xs text-gray-600 mt-0.5 leading-relaxed">
+                <code class="bg-ink-100 px-1 rounded">index.html</code> をブラウザで開いて動作すること。外部フレームワーク不要。
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 p-4">
+            <span class="font-mono text-xs text-gray-300 pt-0.5 w-5 shrink-0">02</span>
+            <div>
+              <p class="text-sm font-medium text-gray-800">JavaScript でページの動作を制御している</p>
+              <p class="text-xs text-gray-600 mt-0.5 leading-relaxed">
+                クリック・スクロールなどのイベントに反応して、何らかの変化が起きること
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 p-4">
+            <span class="font-mono text-xs text-gray-300 pt-0.5 w-5 shrink-0">03</span>
+            <div>
+              <p class="text-sm font-medium text-gray-800">Webサーバで動作すること</p>
+              <p class="text-xs text-gray-600 mt-0.5 leading-relaxed">
+                Webサーバ（http://localhost など）を想定して動作確認すること。<br>
+                Webアプリの多くは、JavaScript でファイル操作や API 呼び出しを行うため。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 加点 -->
+      <div class="mb-4">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xs font-medium bg-green-100 text-green-700 px-2.5 py-0.5 rounded-full">加点</span>
+          <span class="text-xs text-gray-600">挑戦してみよう</span>
+        </div>
+        <div class="bg-white border border-ink-100 rounded-xl divide-y divide-ink-100">
+          <div class="flex items-start gap-3 p-4">
+            <div>
+              <p class="text-sm font-medium text-gray-800">API を使ってデータを取得・更新</p>
+              <p class="text-xs text-gray-600 mt-0.5 leading-relaxed">
+                外部 API（天気、Pokémon API など）を <code class="bg-ink-100 px-1 rounded">fetch()</code> で呼び出してページに表示している
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 p-4">
+            <div>
+              <p class="text-sm font-medium text-gray-800">コーディング</p>
+              <p class="text-xs text-gray-600 mt-0.5 leading-relaxed">
+                機能ごとに関数を分けたり、複数の <code class="bg-ink-100 px-1 rounded">.js</code> ファイルに分割するなど、コードが読みやすい構成になっている
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 p-4">
+            <div>
+              <p class="text-sm font-medium text-gray-800">デザイン</p>
+              <p class="text-xs text-gray-600 mt-0.5 leading-relaxed">
+                レイアウト・配色・フォントなどが整理されており、テーマに合ったデザインになっている
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 p-4">
+            <div>
+              <p class="text-sm font-medium text-gray-800">その他工夫している点がある</p>
+              <p class="text-xs text-gray-600 mt-0.5 leading-relaxed">
+                バックエンドとの連携、ローカルストレージ活用、Canvasを利用したドロー、オリジナルのインタラクション、アクセシビリティへの配慮など
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 提出チェックリスト -->
+    <section class="fade-up delay-4">
+      <h2 class="text-xs font-mono text-gray-600 tracking-widest uppercase mb-3">Checklist — 提出前確認</h2>
+      <div class="bg-white border border-ink-100 rounded-xl divide-y divide-ink-100">
+        <label class="flex items-center gap-3 p-4 cursor-pointer hover:bg-ink-50 transition-colors group">
+          <input type="checkbox" class="w-4 h-4 accent-brand-500 shrink-0">
+          <span
+            class="text-sm text-gray-700 group-has-[input:checked]:line-through group-has-[input:checked]:text-gray-600 transition-colors leading-relaxed">
+            ブラウザで <code class="font-mono text-xs bg-ink-100 px-1 rounded">index.html</code> を開いてページが正しく表示される
+          </span>
+        </label>
+        <label class="flex items-center gap-3 p-4 cursor-pointer hover:bg-ink-50 transition-colors group">
+          <input type="checkbox" class="w-4 h-4 accent-brand-500 shrink-0">
+          <span
+            class="text-sm text-gray-700 group-has-[input:checked]:line-through group-has-[input:checked]:text-gray-600 transition-colors leading-relaxed">
+            コンソールにエラーが出ていない（DevTools で確認）
+          </span>
+        </label>
+        <label class="flex items-center gap-3 p-4 cursor-pointer hover:bg-ink-50 transition-colors group">
+          <input type="checkbox" class="w-4 h-4 accent-brand-500 shrink-0">
+          <span
+            class="text-sm text-gray-700 group-has-[input:checked]:line-through group-has-[input:checked]:text-gray-600 transition-colors leading-relaxed">
+            AI活用した場合は説明に記載している
+          </span>
+        </label>
+        <label class="flex items-center gap-3 p-4 cursor-pointer hover:bg-ink-50 transition-colors group">
+          <input type="checkbox" class="w-4 h-4 accent-brand-500 shrink-0">
+          <span
+            class="text-sm text-gray-700 group-has-[input:checked]:line-through group-has-[input:checked]:text-gray-600 transition-colors leading-relaxed">
+            ファイル名が <code class="font-mono text-xs bg-ink-100 px-1 rounded">js_出席番号_氏名.zip</code> になっている
+          </span>
+        </label>
+      </div>
+    </section>
+
+    <footer class="text-center text-xs text-gray-300 pb-6 font-mono">
+    </footer>
+
+  </main>
+</body>
+
+</html>

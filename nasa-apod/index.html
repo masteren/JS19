@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APOD Viewer — NASA 今日の宇宙画像</title>
+
+  <!-- フォント（任意・お好みで変更可） -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+
+  <!-- 自前の CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- ===== パララックス用の星レイヤー（JSが scroll で動かす） ===== -->
+  <div class="stars" aria-hidden="true">
+    <div class="star-layer" data-depth="0.2" id="layer-far"></div>
+    <div class="star-layer" data-depth="0.5" id="layer-mid"></div>
+    <div class="star-layer" data-depth="0.9" id="layer-near"></div>
+  </div>
+
+  <header class="site-header">
+    <p class="eyebrow">NASA · Astronomy Picture of the Day</p>
+    <h1 class="site-title">今日の宇宙</h1>
+    <p class="site-sub">毎日更新される NASA の天文写真ビューア</p>
+
+    <!-- ===== タブ（data-tab を JS が読んで切り替える） ===== -->
+    <nav class="tabs" id="tabs">
+      <button class="tab is-active" data-tab="today">今日</button>
+      <button class="tab" data-tab="recent">最近</button>
+      <button class="tab" data-tab="random">ランダム</button>
+      <button class="tab" data-tab="saved">お気に入り</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- ローディング／エラー表示用 -->
+    <p class="status" id="status" role="status"></p>
+
+    <!-- カードがここに並ぶ（JSが中身を作る） -->
+    <section class="gallery" id="gallery"></section>
+  </main>
+
+  <!-- ===== ライトボックス（最初は非表示。JSが .is-open を付け外しする） ===== -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lb-close" id="lb-close" aria-label="閉じる">✕</button>
+    <button class="lb-nav lb-prev" id="lb-prev" aria-label="前へ">‹</button>
+
+    <figure class="lb-figure">
+      <img class="lb-img" id="lb-img" src="" alt="">
+      <figcaption class="lb-caption">
+        <p class="lb-date" id="lb-date"></p>
+        <h2 class="lb-title" id="lb-title"></h2>
+        <p class="lb-desc" id="lb-desc"></p>
+      </figcaption>
+    </figure>
+
+    <button class="lb-nav lb-next" id="lb-next" aria-label="次へ">›</button>
+  </div>
+
+  <footer class="site-footer">
+    <p>Data: NASA APOD API · 学校課題作品</p>
+  </footer>
+
+  <!-- ===== JS は 2ファイルに分割（読み込み順に注意：api → app） ===== -->
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>
