@@ -122,7 +122,7 @@ function drawVideoCover() {
     // ctx の状態を保存
     ctx.save();
     // TODO: 選択されたフィルターを適用
-    // ctx.filter = imageFilters[currentFilter] || imageFilters.natural;
+    ctx.filter = imageFilters[currentFilter] || imageFilters.natural;
 
     // TODO: ビデオをキャンバス全体に cover 表示で描画
     ctx.drawImage(
@@ -157,10 +157,10 @@ function drawFrameText() {
     ctx.font = `900 ${fontSize}px Arial, sans-serif`;
 
     // TODO: テキストの幅が最大幅を超える場合、フォントサイズを小さくして調整
-    // while (fontSize > 26 && ctx.measureText(text).width > maxTextWidth) {
-    //     fontSize -= 2;
-    //     ctx.font = `900 ${fontSize}px Arial, sans-serif`;
-    // }
+    while (fontSize > 26 && ctx.measureText(text).width > maxTextWidth) {
+        fontSize -= 2;
+        ctx.font = `900 ${fontSize}px Arial, sans-serif`;
+    }
 
     // テキストをフレーム上に描画
     const x = canvasWidth / 2;
@@ -168,10 +168,10 @@ function drawFrameText() {
     ctx.lineJoin = 'round';
     ctx.lineWidth = Math.max(8, fontSize * 0.18);
     // TODO: フレーム文字色を適用
-    // ctx.strokeStyle = 'rgba(255, 255, 255, 0.92)';
-    // ctx.fillStyle = frameTextColorValue;
-    // ctx.strokeText(text, x, y);
-    // ctx.fillText(text, x, y);
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.92)';
+    ctx.fillStyle = frameTextColorValue;
+    ctx.strokeText(text, x, y);
+    ctx.fillText(text, x, y);
     ctx.restore();
 }
 
@@ -188,22 +188,22 @@ const onCapture = async () => {
     loadingModal.classList.remove('hidden');
 
     // TODO: canvas の内容を Blob に変換
-    // canvas.toBlob((blob) => {
-    //     // 画像ファイルを DataTransfer に追加
-    //     const file = new File([blob], imageFileName, { type: imageType });
-    //     // データ転送オブジェクトにファイルを追加
-    //     dataTransfer.items.add(file);
-    //     // 画像入力要素にファイルを設定
-    //     photoInput.files = dataTransfer.files;
-    //     // 画像URL を生成
-    //     const imageUrl = URL.createObjectURL(blob);
-    //     // 画像モーダルに表示
-    //     capturedImage.src = imageUrl;
+    canvas.toBlob((blob) => {
+        // 画像ファイルを DataTransfer に追加
+        const file = new File([blob], imageFileName, { type: imageType });
+        // データ転送オブジェクトにファイルを追加
+        dataTransfer.items.add(file);
+        // 画像入力要素にファイルを設定
+        photoInput.files = dataTransfer.files;
+        // 画像URL を生成
+        const imageUrl = URL.createObjectURL(blob);
+        // 画像モーダルに表示
+        capturedImage.src = imageUrl;
 
-    //     // モーダル表示とローディング非表示
-    //     imageModal.classList.remove('hidden');
-    //     loadingModal.classList.add('hidden');
-    // }, imageType);
+        // モーダル表示とローディング非表示
+        imageModal.classList.remove('hidden');
+        loadingModal.classList.add('hidden');
+    }, imageType);
 };
 
 /**
@@ -216,21 +216,21 @@ const countDown = () => {
     countdownCircle.classList.add('animate-ping');
 
     // TODO: setInterval を使用してカウントダウンを開始
-    // const countdownInterval = setInterval(() => {
-    //     count--;
-    //     if (count > 0) {
-    //         // カウントダウン中
-    //         countdownCircle.textContent = count;
-    //     } else {
-    //         // カウントダウン終了
-    //         clearInterval(countdownInterval);
-    //         countdownOverlay.classList.add('hidden');
-    //         countdownCircle.classList.remove('animate-ping');
-    //         // 画像キャプチャを実行
-    //         onCapture();
-    //         captureBtn.disabled = false;
-    //     }
-    // }, 1000);
+    const countdownInterval = setInterval(() => {
+        count--;
+        if (count > 0) {
+            // カウントダウン中
+            countdownCircle.textContent = count;
+        } else {
+            // カウントダウン終了
+            clearInterval(countdownInterval);
+            countdownOverlay.classList.add('hidden');
+            countdownCircle.classList.remove('animate-ping');
+            // 画像キャプチャを実行
+            onCapture();
+            captureBtn.disabled = false;
+        }
+    }, 1000);
 };
 
 /**
@@ -239,7 +239,7 @@ const countDown = () => {
 const playSound = () => {
     countdownAudio.currentTime = 0;
     // TODO: カウントダウン音を再生
-    // countdownAudio.play();
+    countdownAudio.play();
 };
 
 // キャプチャボタン押下時
@@ -312,12 +312,12 @@ closeImageModal.addEventListener('click', () => {
 
 // TODO: ダウンロードボタンのイベント
 downloadImageBtn.addEventListener('click', () => {
-    // const link = document.createElement('a');
-    // link.href = capturedImage.src;
-    // link.download = `captured-image-${Date.now()}.jpg`;
-    // document.body.appendChild(link);
-    // link.click();
-    // document.body.removeChild(link);
+    const link = document.createElement('a');
+    link.href = capturedImage.src;
+    link.download = `captured-image-${Date.now()}.jpg`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 });
 
 // Audio ON/OFF 切替
