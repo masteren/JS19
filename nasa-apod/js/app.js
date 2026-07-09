@@ -74,10 +74,22 @@ function createCard(item, index) {
   // 動画の日はサムネがないこともあるので、とりあえず image だけ考えればOK。
   // item の主なプロパティ： item.title / item.date / item.url / item.explanation
 
+  // APOD には画像の日と動画の日がある。動画は url が動画リンクなので
+  // <img> では表示できない。サムネ(thumbnail_url)があれば使い、
+  // なければプレースホルダーを出す。
+  const isVideo = item.media_type === "video";
+  const thumb = isVideo ? item.thumbnail_url : item.url;
+  const mediaHtml = thumb
+    ? `<div class="card-media-wrap">
+         <img class="card-media" src="${thumb}" alt="${item.title}">
+         ${isVideo ? `<span class="media-badge">▶ 動画</span>` : ""}
+       </div>`
+    : `<div class="card-media card-media--placeholder">🎬 動画（クリックで再生）</div>`;
+
   // TODO:card.innerHTML にカードの中身を入れる（テンプレートリテラル `` を使うと楽）
   //   中身の例（class名は style.css に合わせてある）:
   card.innerHTML = `
-      <img class="card-media" src="${item.url}" alt="${item.title}">
+      ${mediaHtml}
       <div class="card-body">
         <p class="card-date">${item.date}</p>
         <h3 class="card-title">${item.title}</h3>
@@ -95,7 +107,14 @@ function createCard(item, index) {
     favBtn.textContent = favBtn.classList.contains("is-fav") ? "★ 保存済み" : "☆ 保存";
   });
 
-  card.addEventListener("click", () => openLightbox(index));
+  card.addEventListener("click", () => {
+    // 動画は別タブで再生、画像はライトボックスで拡大表示
+    if (isVideo) {
+      window.open(item.url, "_blank", "noopener");
+    } else {
+      openLightbox(index);
+    }
+  });
 
   return card;
 }
@@ -176,7 +195,17 @@ function openLightbox(index) {
   const item = currentItems[index];
 
   // TODO:item の中身を各要素に入れる
-    $lbImg.src = item.hdurl || item.url;
+    // 画像は本体、動画はサムネ（あれば）を表示。無ければ画像を隠す。
+    const media = item.media_type === "video"
+      ? item.thumbnail_url
+      : (item.hdurl || item.url);
+    if (media) {
+      $lbImg.src = media;
+      $lbImg.style.display = "";
+    } else {
+      $lbImg.removeAttribute("src");
+      $lbImg.style.display = "none";
+    }
     $lbImg.alt = item.title;
     $lbTitle.textContent = item.title;
     $lbDate.textContent  = item.date;

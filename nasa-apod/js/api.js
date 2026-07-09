@@ -76,10 +76,20 @@ async function fetchApod(params = {}) {
 
 /** 今日の1枚を取得（実装例：これを参考に下の2つを書く） */
 async function fetchToday() {
-  // パラメータなし＝今日の画像が返ってくる
-  const data = await fetchApod();
-  // today は1件だけだが、画面側は「配列」で扱いたいので [ ] で包んで返す
-  return [data];
+  // パラメータなし＝今日の画像が返ってくる。
+  // ただし、その日の画像がまだ未公開だと API が 500 を返すことがあるので、
+  // 失敗したら前日の日付を指定して取り直す。
+  try {
+    const data = await fetchApod({ thumbs: true });
+    // today は1件だけだが、画面側は「配列」で扱いたいので [ ] で包んで返す
+    return [data];
+  } catch (e) {
+    const yesterday = new Date(Date.now() - 24 * 60 * 60 * 1000)
+      .toISOString()
+      .slice(0, 10); // "YYYY-MM-DD"
+    const data = await fetchApod({ date: yesterday, thumbs: true });
+    return [data];
+  }
 }
 
 /** 最近 count 日分を取得 */
@@ -88,7 +98,7 @@ async function fetchRecent(count = 8) {
   //   提示：count を渡すと配列がそのまま返ってくる（[ ] で包む必要なし）
   //   const data = await fetchApod({ count: count });
   //   return data;
-  const data = await fetchApod({ count: count });
+  const data = await fetchApod({ count: count, thumbs: true });
   return data;
 }
 
@@ -96,6 +106,6 @@ async function fetchRecent(count = 8) {
 async function fetchRandom(count = 8) {
   // TODO:fetchRecent とほぼ同じ。{ count } を渡すだけ。
   //   ※ APOD では count を指定すると「ランダムな日付」が返る仕様。
-  const data = await fetchApod({ count: count });
+  const data = await fetchApod({ count: count, thumbs: true });
   return data;
 }
