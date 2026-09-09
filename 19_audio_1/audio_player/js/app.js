@@ -39,7 +39,7 @@ async function fetchTracks() {
         // レスポンスが正常でない場合はエラーをスロー
         const data = await response.json();
         // TODO: tracks配列に取得したトラック情報を追加
-        // tracks.push(...data);
+        tracks.push(...data);
 
         // プレイリストをレンダリングし、最初のトラックを読み込む
         renderPlaylist();
@@ -311,6 +311,7 @@ function loadTrack(index) {
     const track = tracks[currentTrackIndex];
 
     // TODO: オーディオのsrcを設定
+    audio.src = track.src
 
     trackTitle.textContent = track.title;
     trackArtist.textContent = track.artist;
@@ -357,11 +358,13 @@ function playAudio() {
     }
 
     // TODO: オーディオを再生: play()
+    audio.play()
 }
 
 // オーディオの一時停止
 function pauseAudio() {
     // TODO: オーディオを一時停止: pause()
+    audio.pause()
 }
 
 // 再生/一時停止の切り替え
@@ -459,14 +462,14 @@ nextBtn.addEventListener('click', nextTrack);
 progressBar.addEventListener('input', seekAudio);
 
 // TODO: 音量バーイベント
-// volumeBar.addEventListener('input', (event) => {
-//     audio.volume = Number(event.target.value);
-// });
+volumeBar.addEventListener('input', (event) => {
+    audio.volume = Number(event.target.value);
+});
 
 // TODO: 速度セレクトイベント
-// speedSelect.addEventListener('change', (event) => {
-//     audio.playbackRate = Number(event.target.value);
-// });
+speedSelect.addEventListener('change', (event) => {
+    audio.playbackRate = Number(event.target.value);
+});
 
 // シャッフルボタンイベント
 shuffleBtn.addEventListener('click', () => {
@@ -481,24 +484,24 @@ repeatBtn.addEventListener('click', () => {
 });
 
 // TODO: オーディオ再生イベント
-// audio.addEventListener('play', () => {
-//     playBtn.textContent = 'Ⅱ';
-//     startVisualizer();
-// });
+audio.addEventListener('play', () => {
+    playBtn.textContent = 'Ⅱ';
+    startVisualizer();
+});
 
 // TODO: オーディオ一時停止イベント
-// audio.addEventListener('pause', () => {
-//     playBtn.textContent = '▶';
-//     stopVisualizer();
-// });
+audio.addEventListener('pause', () => {
+    playBtn.textContent = '▶';
+    stopVisualizer();
+});
 
 // TODO: オーディオのメタデータが読み込み完了イベント
-// audio.addEventListener('loadedmetadata', () => {
-//     duration.textContent = formatTime(audio.duration);
-// });
+audio.addEventListener('loadedmetadata', () => {
+    duration.textContent = formatTime(audio.duration);
+});
 
 // TODO: オーディオのタイム更新イベント
-// audio.addEventListener('timeupdate', updateProgress);
+audio.addEventListener('timeupdate', updateProgress);
 
 // オーディオの再生終了イベント
 audio.addEventListener('ended', () => {
